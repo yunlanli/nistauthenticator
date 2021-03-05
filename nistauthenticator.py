@@ -1,4 +1,5 @@
 from tornado import gen
+from traitlets import Unicode
 from jupyterhub.auth import Authenticator
 from jupyterhub.handlers.base import BaseHandler
 from jupyterhub.handlers.login import LogoutHandler
@@ -24,9 +25,17 @@ class NISTLogoutHandler(LogoutHandler):
         # html = await self.render_template('logout.html')
         # self.finish(html)
 
-        self.redirect('https://google.com/')
+        self.redirect(self.authenticator.logoutURL)
 
 class NISTAuthenticator(Authenticator):
+    logoutURL = Unicode(
+            default_value='https://www.google.com/',
+            config=True,
+            help="""
+            URL to redirect to when hub user logs out.
+            """
+    )
+
     def login_url(self, base_url):
         return url_path_join(base_url, 'nist_login')
 
