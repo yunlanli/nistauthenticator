@@ -12,19 +12,14 @@ class NISTLoginHandler(BaseHandler):
 
         # create and register user in hub db if first time login
         # retrieve user info for setting cookie and redirect
-        user = self.user_from_username(username);
-        self.set_login_cookie(user);
+        user = self.user_from_username(username)
+        self.set_login_cookie(user)
         self._jupyterhub_user = user
 
         self.redirect(self.get_next_url(user))
-        #_url = url_path_join(self.hub.server.base_url, 'home')
-        #self.redirect(_url)
 
 class NISTLogoutHandler(LogoutHandler):
     async def render_logout_page(self):
-        # html = await self.render_template('logout.html')
-        # self.finish(html)
-
         self.redirect(self.authenticator.logoutURL)
 
 class NISTAuthenticator(Authenticator):
@@ -35,9 +30,6 @@ class NISTAuthenticator(Authenticator):
             URL to redirect to when hub user logs out.
             """
     )
-
-    def login_url(self, base_url):
-        return url_path_join(base_url, 'nist_login')
 
     def get_handlers(self,app):
         '''Register our own customized login handler in JupyterHub'''
