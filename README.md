@@ -13,12 +13,6 @@ You can install with pip:
 pip install nistauthenticator
 ```
 
-or clone this repository and in the repository root execute:
-
-```bash
-pip install -e .
-```
-
 ## Usage
 After successful installation, you can use `nistauthenticator` as the authenticator for JupyterHub by including the following in your JupyterHub configuration file:
 
